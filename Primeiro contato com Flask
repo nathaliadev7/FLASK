@@ -1,21 +1,37 @@
-from flask import Flask
+from flask import Flask,redirect,request #o redirect serve para que voce consiga redirecionar para outras paginas
 
 app = Flask(__name__)# é chamando o arquivo atual,ou seja, estamos criando uma aplicação através disso;
 
 @app.route("/")
 def hello_world():
-    return '<h1> Minha primeira página flask <h1>'
+    return '''<h1> Minha primeira página flask <h1>
+          <button> <a href="/segunda_pagina"> Ir para segunda pagina"</a></button>'''
 
 
 
 @app.route("/segunda_pagina")
 def segundapag():
-    return '<h1> Minha segunda página <h1>'
+    return '''<h1> Minha segunda página <h1><br> 
+          <button> <a href="/terceira_pagina"> Ir para terceira pagina"</a></button>'''
 
 
-@app.route("/terceira_pagina")
+@app.route("/terceira_pagina",methods=['GET','POST']
+)
 def formulario():
-    return "<form> <label>Primeiro nome:</label> <input placeholder='Digite seu nome' type='text'><br><br> <label>Segundo  Nome</label><input  type='text' ><br><br><input  type='submit' value='enviar'></form>"
+    
+    if request.method == 'POST':
+        nome = request.form['nome']
+        sobrenome = request.form['sobrenome']
+    
+    return '''
+        <form action> 
+                <label>Primeiro nome:</label> 
+                    <input name='nome' placeholder='Digite seu nome' type='text'><br><br>
+                <label>Segundo  Nome</label>
+                    <input name='sobrenome' type='text' ><br><br>
+                <input  type='submit' value='enviar'>
+            <button> <a href="/"> Ir para primeira pagina"</a></button>
+        </form>'''
 
 
 
@@ -41,3 +57,4 @@ def dados_dicionario():
 
 if __name__ == '__main__':#aqui estamos dizendo que só pode executar o arquivo, caso ele seja igual ao que foi rodado anteriormente, caso contrário, não rode o app
     app.run(debug=True)#usamos o if name == main sempre no final, e necessita de apenas um app.run nele.
+
