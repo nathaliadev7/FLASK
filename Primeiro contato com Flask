@@ -1,0 +1,43 @@
+from flask import Flask
+
+app = Flask(__name__)# é chamando o arquivo atual,ou seja, estamos criando uma aplicação através disso;
+
+@app.route("/")
+def hello_world():
+    return '<h1> Minha primeira página flask <h1>'
+
+
+
+@app.route("/segunda_pagina")
+def segundapag():
+    return '<h1> Minha segunda página <h1>'
+
+
+@app.route("/terceira_pagina")
+def formulario():
+    return "<form> <label>Primeiro nome:</label> <input placeholder='Digite seu nome' type='text'><br><br> <label>Segundo  Nome</label><input  type='text' ><br><br><input  type='submit' value='enviar'></form>"
+
+
+
+@app.route("/titulo_da_pagina")
+def titulo_da_pa():
+    return 'Meu titulo '
+
+
+@app.route('/dados_nathalia')
+def dados():
+    return 'Nathalia, 20 anos'
+
+
+
+INFORMACOES = {'SIGNO': 'ARIANA',
+               'IDADE': '20',
+               'nome':'NATHALIA'}
+
+@app.route('/dados_dicionario')
+def dados_dicionario():
+    return INFORMACOES
+
+
+if __name__ == '__main__':#aqui estamos dizendo que só pode executar o arquivo, caso ele seja igual ao que foi rodado anteriormente, caso contrário, não rode o app
+    app.run(debug=True)#usamos o if name == main sempre no final, e necessita de apenas um app.run nele.
